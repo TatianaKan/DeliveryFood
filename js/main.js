@@ -53,7 +53,11 @@ logInForm.addEventListener('submit', (event)=> {
 
   localStorage.setItem('user', JSON.stringify(user))
 
-  login(user);
+  if (user.login !== '') {
+    login(user);
+  } else {
+    alert('Вы не ввели логин')
+  }
 })
 
 if (localStorage.getItem('user')) {
