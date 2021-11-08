@@ -4,6 +4,15 @@ const cart = () => {
   const close = modalCard.querySelector('.close');
   const modalBody = modalCard.querySelector('.modal-body');
 
+  const btnSent = modalCard.querySelector('.button-primary');
+
+  const resetCArt = () => {
+    modalBody.innerHTML = ''
+    localStorage.removeItem('cart');
+    modalCard.classList.remove('is-open')
+  }
+ 
+
   const incCount = (id) => {
     const cartArray = JSON.parse(localStorage.getItem('cart'))
   
@@ -46,22 +55,52 @@ const cart = () => {
 <span class="food-name">${name}</span>
 					<strong class="food-price">${price}₽</strong>
 					<div class="food-counter">
-						<button class="counter-button btn-dec">-</button>
+						<button class="counter-button btn-dec" data-id="${id}"">-</button>
 						<span class="counter">${count}</span>
-						<button class="counter-button btn-inc">+</button>
+						<button class="counter-button btn-inc" data-id="${id}"">+</button>
 `
 
-      cartElem.querySelector('.btn-dec').addEventListener('click', () => {
-        dicCount(id)
-      })
+    //   cartElem.querySelector('.btn-dec').addEventListener('click', () => {
+    //     dicCount(id)
+    //   })
 
-      cartElem.querySelector('.btn-inc').addEventListener('click', () => {
-        incCount(id)
-      })
-      modalBody.append(cartElem);
-
+    //   cartElem.querySelector('.btn-inc').addEventListener('click', () => {
+    //     incCount(id)
+    //   })
+    modalBody.append(cartElem);
+    
     })
   }
+
+
+  
+  modalBody.addEventListener('click', (e)=> {
+    e.preventDefault();
+
+    if (e.target.classList.contains('btn-inc')) {
+      incCount(e.target.dataset.id);
+    } else if (e.target.classList.contains('btn-dec')) {
+      dicCount(e.target.dataset.id);
+    } 
+  });
+
+ btnSent.addEventListener('click', ()=> {
+    const cartArray = JSON.parse(localStorage.getItem('cart'));
+
+    fetch ('https://jsonplaceholder.typicode.com/posts', {
+      method: 'POST',
+      modalBody: cartArray
+    })
+    .then(response => {
+      if (response.ok) {
+        resetCArt()
+      }
+    })
+    .catch(e=> {
+      console.error(e)
+    })
+  })
+
 
   buttonCart.addEventListener('click', () => {
     console.log(JSON.parse(localStorage.getItem('cart')));
