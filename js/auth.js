@@ -1,4 +1,5 @@
-const buttonAuth = document.querySelector('.button-auth');
+const auth = ()=> {
+  const buttonAuth = document.querySelector('.button-auth');
 const modalAuth = document.querySelector('.modal-auth');
 
 const buttonOut = document.querySelector('.button-out');
@@ -10,6 +11,8 @@ const logInForm = document.getElementById('logInForm');
 const inputLogin = document.getElementById('login');
 const inputPassword = document.getElementById('password');
 
+const buttonCart = document.querySelector('.button-cart');
+
 // console.log(buttonOut);
 // console.log(userName)
 
@@ -19,6 +22,8 @@ const login = (user)=> {
  userName.style.display = 'flex';
  userName.textContent = user.login;
  modalAuth.style.display = 'none';
+
+ buttonCart.style.display = 'flex'
 }
 
 const logout = ()=> {
@@ -27,6 +32,8 @@ const logout = ()=> {
   userName.style.display = 'none';
   userName.textContent = '';
   modalAuth.style.display = 'none';
+
+  buttonCart.style.display = 'none'
 
   localStorage.removeItem('user')
 }
@@ -51,7 +58,7 @@ logInForm.addEventListener('submit', (event)=> {
     password: inputPassword.value
   }
 
-  localStorage.setItem('user', JSON.stringify(user))
+  localStorage.setItem('user', JSON.stringify(user));
 
   if (user.login !== '') {
     login(user);
@@ -64,4 +71,5 @@ if (localStorage.getItem('user')) {
   login(JSON.parse(localStorage.getItem('user')))
 }
 
-
+}
+auth();
