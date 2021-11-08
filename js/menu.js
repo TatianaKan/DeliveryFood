@@ -4,7 +4,18 @@ const cardsMenu = document.querySelector('.cards-menu');
 const changeTitle = (restarount) => {
  const restarountTitle = document.querySelector('.restaurant-title');
  restarountTitle.textContent = restarount.name;
+
+ const rating = document.querySelector('.rating');
+ rating.textContent = restarount.stars;
+
+ const price = document.querySelector('.price');
+ price.textContent = `От ${restarount.price} ₽`;
+
+ const category = document.querySelector('.category');
+ category.textContent = restarount.kitchen;
+
 }
+
 
 
 const renderItems = (data) => {

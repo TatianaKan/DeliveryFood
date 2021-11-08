@@ -28,7 +28,7 @@ const renderItems = (data) => {
 								<div class="rating">
 									${stars}
 								</div>
-								<div class="price">${price}</div>
+								<div class="price">От ${price} ₽</div>
 								<div class="category">${kitchen}</div>
 							</div>
 						
